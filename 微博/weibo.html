@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微博-随时随地发现新鲜事</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css">
+    <link rel="icon"  href="./img./favicon.ico">
+    <style>
+                /*CSS的部分*/
+        *{
+            margin :0px;
+            padding: 0;
+         }
+         body{
+             overflow-y: scroll;
+             min-width: 1000px;
+             overflow-x: hidden;
+         }
+         html,body{height:100%}
+         .header{
+             border-top: 2px solid #fa7d3c;
+             background: white;
+             width:100%;
+             height:49px;
+             position: fixed;
+             z-index: 9999;
+             box-shadow: 0 0 1px 0px rgba(0,0,0,0.3), 0 0 6px 2px rgba(0,0,0,0.15);
+         }
+         a{
+             text-decoration: none;
+             display: inline-block;
+         }
+         .header a img{
+             width:14%;
+             height:48px;
+             padding-left: 7%;
+             position: absolute;
+             top:2%;
+         }
+        .header .search input{
+            width: 17.4%;
+            height:30px;
+            margin: 9px 0 0 10px;
+           top: 0px;
+           left:21.4%;
+           color: #808080;
+           border: 1px solid #ccc;
+           position: absolute;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+            line-height: 20px;
+            background-color: #f2f2f5;
+            text-indent: 0.5em;
+            padding-right: 2em;
+            box-sizing: border-box;
+            font: 12px/1.3 Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+        }
+        .header .search  input:focus,.header .search  input:hover{
+            outline:none;
+            border: 1px solid #eb7350;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+        .header .search  button{
+            width:0;
+            border:0;
+            position: absolute;
+            left: 37.6%;
+            bottom: 15px;   
+        }
+        .header .search button i:hover{
+         color:#fa7d3c;
+        }
+        .header .search button i{
+            width: 18px;
+            font-size: 18px;
+             font-weight: bold;
+            color: #696e78;
+            cursor: pointer;
+        }
+        ul{
+            list-style-type: none;
+            padding:0;
+        }
+         .header div ul li a:hover em,.header div ul li a:hover i{
+             color:#eb7350;
+         }
+         .header .daohang ul li a i{
+             font-size: 21px;
+             font-weight: bold;
+             color: #696e78;
+             vertical-align: middle;
+           }
+           .header .daohang ul li a em{
+               font-size: 14px;
+           }
+           .header .daohang ul li{
+               float: left;
+               text-indent: 1em;
+           }
+           .header .daohang{
+               position: fixed;
+               right: 23%;
+               top: 13px;
+           }
+           .header .denglu li a em{
+             font-family: Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+             font-size: 14px;
+             color:#333;
+           }
+            .header div ul li a em{
+             font-size: 18px;
+             font-style: normal;
+              color: #333;
+           }
+           .header .denglu li a:hover em{
+             color:#eb7350;
+           }
+           .header .denglu ul li{
+               float: left;
+           }
+           .header .denglu{
+               position: fixed;
+               top:13px;
+               right: 11%;
+           }
+           .header .denglu li{
+             color:rgb(217, 217, 217);
+           }
+            .duoxuan ul li span{
+            line-height: 15px;
+            width:15px;
+            height:15px;
+            background-color: rgb(105, 110, 120);;
+             font-size: 12px;
+             color:white;
+             display: block;
+             font-family: Arial;
+             text-align: center;
+             border-radius: 50%;
+             position: relative;
+             top: 2px;
+         }
+         #first{
+             background-color: rgb(223, 62, 62);
+         }
+         #second{
+             background-color: rgb(250, 125, 60);
+         }
+         .duoxuan{
+             width:17.25%;
+            line-height: 20px;
+             z-index: 9998;
+            background: #fff;
+             color: #333;
+             border: 1px solid #ccc;
+             box-shadow: 0px 2px 8px 1px rgba(0,0,0,0.2);
+             display:none;
+             position: fixed;
+            left:22.19%;
+            top:42px;
+        }
+        .header .search:hover .duoxuan{
+            display: block;
+        }
+         .duoxuan ul{
+             line-height: 12px;
+         }
+         .duoxuan ul li{
+             height:30px;
+             font: 12px/1.3 Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+             text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height: 20px;
+            cursor: pointer;
+         }
+         .duoxuan ul li>i{
+             font-size: 20px;
+             color: tomato;
+             vertical-align: middle;
+         }
+         .duoxuan ul li:hover{
+             background-color: #f2f2f5;
+             color: #eb7350;
+             margin: 0 auto;
+             height: 30px;
+             width:100%;
+         }
+        .duoxuan ul li span{
+           float: left;
+        }
+        /* 以上是页头的css样式 */
+            .article{
+            width: 1170px;
+            min-height: 680px;
+            margin: 0 auto;
+            padding: 16px 0 0 0;
+            position: absolute;
+            top: 52px;
+            z-index: 1;
+        }
+          .article .left{
+              position: fixed;
+              top: 67px;
+              left: 40px;
+              z-index: 999;
+          }
+         .article .left ul li a{
+        font-size:18px;
+        line-height:40px;
+        text-decoration: none;
+        color:black;
+        display: inline-block;
+        text-indent: 2em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+        width:110px;
+        height:40px;
+        line-height: 40px;                      
+        }
+        .article  .left ul li a:active,.article .left ul li a:hover,.article .left ul li .seleted{
+        background:linear-gradient(128deg, #fa2f2f 0%, #ff5b36 90%);
+        color:rgb(255, 255, 255);
+        display:inline-block;width:110px;
+        height:40px;
+        line-height: 40px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -o-border-radius: 3px;
+        box-sizing: border-box;
+        }
+        /* 以上是左侧边栏的css样式 */
+            .clearfix::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+         body{
+             height:100%;
+             width:100%;
+             position: relative;
+         }
+         .neirong1::selection,span::selection,h3::selection{
+             color:white;
+             background-color: coral;
+         }
+         .article{
+             position: relative;
+             
+         }
+         .article  article{
+             position: relative;
+             left: 134px;
+         }
+               .article  article   .main{
+                 width:660px;
+                 background-color:white;
+                 position: absolute;
+               }
+               .article  article   .main .bikai{
+                   height: 330px;
+                   width:660px;
+                   display: block;    
+                   position: relative;
+               }
+               .article  article   .main .bikai .tupian{
+                height: 300px;
+                width:660px;
+                display: block;
+               }
+               .article  article   .main .bikai ul li{
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #ccc;
+                margin: 0 5px;
+                float: left;
+                right: 0;
+                cursor: pointer;
+               }
+               .article  article   .main .bikai ul{
+                position: absolute;
+               right: 271px;
+               text-align: center;
+                bottom: 12px;
+               }
+               .article  article   .main .bikai ul li:hover, .article  article   .main .bikai ul .tupian1{
+                   background-color:#eb7350;
+               }
+               h2{
+                font-size: 18px;
+                font-weight: bold;
+                color:white;
+                cursor: pointer;
+               }
+               h3{
+                font-size: 12px;
+                font-weight: normal;
+                color:white;
+                cursor: pointer;
+               }
+               .firstwenzi{
+                   position: relative;
+                   top: -49px;
+                   left: 8px;
+        }
+               .firstwenzih{
+                   position: relative;
+                   top: -47px;
+                   left: 9px;
+               }
+               .secondwenzi{
+                position: absolute;
+                top: -201px;
+                right: 4px;
+                white-space: nowrap;
+                z-index: 0;
+                margin-top: -37px;
+               }
+               .thirdwenzi{
+                position: absolute;
+                bottom: 60px;
+                right: -43px;
+                white-space: nowrap;
+                 bottom: 33px;
+                right: 4px;
+                font-size: 18px;
+                font-weight: bold;
+                color:white;
+               }
+               pre{
+                   font-family: normal;
+                   font-size: 14px;
+                   color: white;
+               }
+               .thirdwenzi pre{
+                padding-right: 20px;
+                position: relative;
+                left: 43px;
+               bottom: -2px;
+               }
+               .tixin{
+                height:36px;
+                color:#ed7350;
+                background-color:#fffdec;
+                font-size: 14px;
+                text-align: center;
+                line-height: 36px;
+                cursor: pointer;
+                position: relative;
+               }
+               .tixin span{
+                color: #696e78;
+                position: absolute;
+                right: 10px;
+                font-size: 18px;
+                font-weight: normal;
+               }
+               .neirong{
+                border-bottom: 1px solid #e5e5e5;
+                background-color: white;
+                position: relative;
+                padding-bottom: 10px;
+                padding-top: 2px;
+                text-align: justify;
+                cursor: pointer;
+               }
+               .neirong1{
+                padding-bottom: 19px;
+               }
+               .neirong:first-child{
+                   margin-top: 32px;
+               }
+               .neirong img{
+                   width: 326px;
+                   height: 184px;float: left;
+               }
+        
+               .neirong .shipin{
+                   position: relative;
+               }
+               .neirong .icon-bofang{
+                   position: absolute;
+                   font-size: 45px;
+                   color: white;
+                   left: 103px;
+                 top: 69px;
+               }
+               .neirong .icon-bofang:hover,.neirong .icon-bofang:active{
+                   color:coral;
+               }
+               .neirong a{
+                  display: block;
+                  color: black;
+               }
+               .neirong a:active{
+                   color: black;
+               }
+               .neirong1{
+                   font-size: 14px;
+                   line-height: 24px;
+                   cursor: pointer;
+               }
+               .neirong1  span{
+                color: #eb7350;
+                overflow: hidden;
+        }
+                .zan{
+                    position: absolute;
+                    height: 20px;
+                    width: 239px;
+                    background:white;
+                    right: 0px;
+                    bottom: 11px;
+                    margin-right: -60px;
+                    letter-spacing: -1px;
+                }
+                .zan i{
+                    font-size: 19px;
+                    vertical-align: middle;
+                    color: #808080;
+                }
+                .zan .icon-pinglun{
+                    position: relative;
+                    top: 2px;
+                }
+                .zan  span,.mingzi span{
+                    font-size: 12px;
+                    vertical-align: middle;
+                    color: #808080;
+                }
+                .mingzi span{
+                    position: absolute;
+                    
+                    bottom: 26px;
+                     left: 200px;
+                }
+                .zan .fenge{
+                    font-size: 10px;
+                    color: rgb(204, 204, 204);;
+                }
+                .icon-fenxiang:hover,.icon-pinglun:hover,.icon-zan2:hover,.icon-zan2:checked{
+                    color: #eb7350;
+                }
+                .yidong:active{
+                    background-position: right;
+                     transition: background .1s steps(20);;
+                }
+                .icon-jiazai{animation:xz 1s linear infinite ;
+                display: inline-block;}
+               @keyframes xz{
+                 from  {transform:rotate(0deg);}
+               to{transform:rotate(360deg);}
+         
+        }
+             .tubiao{
+               position: fixed;
+               right: 11px;
+               bottom: 143px;
+               color: white;
+               cursor: pointer;
+              text-align: center;
+              font-size: 26px;
+              line-height: 45px;
+              font-weight: bold;
+               }
+               .zhezhao{
+                width: 39px;
+                height: 39px;
+                background-color: #808080c7;
+                position: fixed;
+                right: 5px;
+                bottom: 146px;
+                border-radius: 2px;
+        }
+               .zhezhao:hover{
+                background-color: gray;
+        }
+                 .gengxin .tubiao1:hover{
+                    color: gray;
+        }
+               .gengxin .zhezhao1{
+                   bottom:86px;
+               }
+               .tubiao1{
+                width: 29px;
+                 height: 30px;
+               position: fixed;
+               right: 17px;
+               bottom: 104px;
+               font-size: 20px;
+               font-size: 41px;
+               color: #808080c7;
+               cursor: pointer;
+               }
+               .icon-gengxin2:active {
+           animation: move 0.1s linear ;
+           -webkit-animation: move 0.1s linear ;
+          display: inline-block;
+        }
+        @keyframes move {
+          100% {
+            transform: rotate(180deg);
+          }
+        }
+        /* 上面这部分是中间三部分的最中间 */
+                 footer{
+                  position: absolute;
+                          left: -245px;
+                          margin-top: 29px;
+                          width: 1105px;
+                }
+                
+               ul{
+               list-style-type: none;
+               padding:0;
+               }
+               .gray,footer div  p a{
+               text-decoration: none;
+               color:gray;
+               font: 12px/1.3 Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+               }
+               footer div  p a:hover,.dianji:hover{
+               color:#eb7350;
+               cursor: pointer;
+               }
+               footer{
+                   margin-bottom: 20px;
+               }
+               footer .top{
+                   height: 154px; 
+               box-shadow: 0 0 1px 0px rgba(0,0,0,0.15);
+               padding-left: 203px;
+               padding-left: 259px;
+               line-height: 56px;
+               margin-left: 2px;
+               width: 1096px;
+               }
+               
+               footer .top div{
+               float: left;
+               }
+               footer .top .yi1 ul li:nth-child(odd){
+               float: left;
+               margin-right: 32px;
+               }
+               footer .top div h2{
+               font-size: 16px;
+               padding: 0 0 15px;
+               white-space: nowrap;
+               width: 138px;
+               overflow: hidden;
+               font-weight: normal;
+               margin-bottom: -17px;
+               color: #333;
+               }
+               footer .top .yi2{
+               width: 264px;
+               margin-left: 20px;
+               }
+               footer .top .yi2 h2{
+               padding-left: 40px;
+               }
+               footer .top div ul li,footer .top .yi2 figure p{
+               height: 20px; 
+               color: #808080;
+               font: 12px/1.3 Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+               }
+               footer .top .yi2 figure p{
+               padding-left: 90px;
+               margin-top: 0px;
+               }
+               footer .top .yi2 figure{
+               float: left;
+               padding-left: 40px;
+               width: 200px;
+               }
+               footer .top div figure img{
+               width: 79px;
+               height: 79px;
+               float: left;
+               }
+               footer .top .yi3{
+               width:200px;
+               margin-left: 46px;
+               }
+               footer .top .yi3 ul li{
+               float: left;
+               padding-right: 36px;
+               }
+               footer .top .yi4{
+               margin-left: 36px;
+               }
+               footer .bottom{
+               background-color: #f2f2f5;
+               width: 124%;
+               text-align: center;
+               padding: 6px 0 45px;
+               line-height: 25px;
+               padding-top: 20px;
+               }
+               footer .bottom p a img{
+               width: 20px;
+               height: 25px;
+               vertical-align: middle;
+               }
+               footer .bottom p img{
+               width: 28px;
+               height: 20px;
+               vertical-align: middle;
+               }
+               select:focus{
+               outline-color: #eb7350;
+               }
+               
+        
+        /* 以上是页脚的css样式 */
+        
+               .right{
+                   width:340px;
+                   position: absolute;
+                   height: 300px;
+                   right: 0px;
+               }
+               .right .denglu{
+                   height:320px;
+                   background: #f2f2f5;
+                   margin: 0 auto;
+               }
+               .bai{
+                   width: 300px;
+                   height: 286px;
+                   background-color: white;
+                   margin: 0 auto;
+                   position: relative;
+                   top: 17px;
+               }
+               .qianrutupian{
+                   position: absolute;
+                   right: 0px;
+                   cursor: pointer;
+               }
+               .qianrutupian img{
+                   width: 40px;
+                   height: 40px;
+               }
+               .denglu .bai .loginin{
+                   width:270px;
+                   background-color: white;
+                   margin: 0 auto;
+                   border-radius: 2px;
+                   height: 286px;
+               }
+               .article .right .denglu .bai .loginin .switch-menu{
+                   font-weight:normal;
+                   font-size: 14px;
+                   border-bottom: 1px solid #ccc;
+                   width: 270px;
+                   height: 44px;
+                   line-height: 52px;
+                   cursor: pointer;
+                   box-sizing: border-box;
+                   color:#000;
+               }
+               .article .right .denglu .bai .loginin .switch-menu span{
+                   width: 135px;
+                   float: left;
+                   box-sizing: border-box;
+                   padding-left: 50px;      
+                   height: 44px;
+                   color: #808080;
+               }
+               .article .right .denglu .bai .loginin .switch-menu .xuanzhong{
+                   border-bottom: 3px solid #fa7d3c;
+                   font-weight: 700;
+                   color:black;
+               }
+               .loginin{
+                color: #808080;
+                font-size: 12px;
+               }
+               .denglu input{
+                   width: 270px;
+                   height: 34px;
+                   border:1px solid #ccc;
+                    border-radius: 2px;  
+                   box-sizing: border-box;
+                   margin-top: 20px;
+                   color: #808080;
+                font-size: 12px;
+                padding-left: 27px;
+               }
+               .denglu .xuanze{
+                   width: 12.67px;
+                   height:12.67px;
+               }
+               .denglu input:focus{
+                border-color: #fa7d3c;
+                outline: none;
+                color: #000;
+               }
+             .form  .denglu .icon-yonghu{
+                position: absolute;
+                 top: 72px;
+                 font-size: 19px;
+                 left: 18px;
+               }
+               .form .denglu{
+                height: 242px;
+                background-color: white;
+               }
+               .form  .denglu .icon-mima{
+                position: absolute;
+                top: 124px;
+                 font-size: 19px;
+                 left: 18px;
+               }
+               .dengluanniu{
+                   width: 268px;
+                   height: 34px;
+                   background: #ff8140;
+                   font-size: 16px;
+                   color: white;
+                   text-align: center;
+                   line-height: 34px;
+                   border: 1px solid #f77c3d;
+                   border-radius: 2px;
+                   margin-top: 11px;
+                   cursor: pointer;
+               }
+               .dengluanniu:hover{
+                background: #f7671d;
+               }
+               .xiaozi,.zhaoren1 .hezi .xiaozi{
+                color: #808080;
+                font-size: 12px;   
+               }
+               .xiaozi1{
+                position: absolute;
+                left: 15px;
+                padding-bottom: 5px;
+                bottom: 25px;
+                width: 89.89%;
+                border-bottom: 1px solid #ccc;
+               }
+               .xiaozi span{
+                color: #eb7350;
+                cursor: pointer;
+               }
+               .xiaozi2{
+                position: absolute;
+                left: 15px;
+                bottom: 4px;
+                width: 89.89%;
+                font-size: 12px;
+               }
+               .dibu .xiaozi2 i{
+                color: #F60;
+                font-size: 16px;
+                vertical-align: middle;
+                cursor: pointer;
+               }
+               .bian{
+                background: #f2f2f5;
+                border-top: 1px solid #fa2f2f;
+                margin-top: 16px; 
+               }
+               .bian .main{
+                padding-left: 20px;
+               padding-top: 15px;
+            }
+               .bian h2, .bian  h2{
+                font-size: 18px;
+                font-weight: bold;
+                color: #000;
+               }
+               .bian .dibu{
+                     height: 34px;
+                     border-top: 1px solid #d9d9d9;
+                     text-align: center;
+                     box-sizing: border-box;
+                     line-height: 28px;
+               }
+               .bian .dibu .dianji{
+                   color:#333;
+               }
+               .bian .dibu .dianji:hover,.bian .main .neirong .dianji:hover,.bian .dibu .dianji:hover span,.haha:hover .xiaozi,.haha:hover .teshu,.zhaoren1 .hezi .xiaozi:hover
+               {
+                color:#eb7350;
+                cursor: pointer;
+               }
+               .bian .dibu .dianji span,.bian .teshu{
+                color: #696c78;
+               }
+               .bian .main .neirong{
+                   width: 300px;
+                   height: 50px;
+                   margin-top: 17px;
+                   background: #f2f2f5;
+               }
+               .bian .main .neirong:last-child{
+                margin-bottom: 17px;
+               }
+               .bian .main .neirong img{
+                        width: 50px;
+                        height: 50px;
+                        float: left;
+                        cursor: pointer;
+               }
+               .bian .main .neirong h3{
+                    font-size: 14px;
+                    font-weight: normal;
+                    padding-left: 64px;
+                    padding-top: 4px;
+                    margin-bottom: 4px;
+                    color: #000;
+               }
+               .bian .main .neirong span{
+                   cursor: pointer;
+                   color: gray;
+                   font-size: 12px;
+                   position: relative;
+                   top: -3px;
+               }
+               .bian .xiaozi{
+                color: #333;
+               }
+               .haha{
+                 width:320px;
+                 height:57px;
+                 line-height: 50px;
+                 padding-left: 21px;
+               }
+               .zhaoren{
+                padding-left: 20px;
+                padding-top: 15px;
+               }
+               .zhaoren .main{
+                   padding-left: 0px;
+               }
+               .zhaoren .main .zhaoren1{
+                border-bottom: 1px solid #d9d9d9;
+                width: 300px;
+                }
+               .zhaoren .main .zhaoren1 h3,.zhaoren .main .zhaoren1{
+                font-size: 16px;
+               color: #808080;
+               font-weight: normal;
+               margin-bottom: 14px;
+               padding-top: 4px;
+               }   
+               .zhaoren .main .zhaoren1 h3:first-child{
+                margin-bottom: 14px;
+                padding-top: 0px;
+                position: relative;
+               }
+               .zhaoren .main .zhaoren1:last-child{
+                   border:0;
+               }
+               .zhaoren1 .hezi{
+                   float: left;
+                   margin-right: 51px;
+                   margin-bottom: 16px;
+               }
+               .zhaoren1 .hezi:nth-of-type(3n)
+               {
+                   margin-right: 0px;
+                   margin-left: 9px;
+               }
+               .zhaoren1 .hezi i{
+                  vertical-align: middle;
+                  display: inline-block;
+                  width: 14px;
+                  height: 14px;
+                  color: gray;
+                  font-weight: bold;
+                  font-size: 13px;
+               }
+               .zhaoren1 .hezi span{
+                   vertical-align: middle;
+               }
+              .zhaoren1 .hezi .yidong {
+              font-weight: bold;
+              position: relative;
+               left: 3px;
+               vertical-align: middle;
+               }
+            .zhaoren .main   .zhaoren1 .yidong1{
+                   margin-left: -15px;
+               }
+               .zhaoren .main   .zhaoren1 .yidong2{
+                margin-left: -13px;
+               }
+               .zhaoren .main   .zhaoren1 .yidong3{
+                margin-left: -23px;
+               } 
+               /* 右边那一排 */
+    </style>
+</head>
+<body>
+    <header class="header">
+    <!-- 导航栏 -->
+    <a href="https://weibo.com/?topnav=1&mod=logo">
+        <img src="./img/weibo.png"img>
+    </a> 
+     <div class="search">
+    <input type="text" placeholder="大家都在搜：小雪喊苏文谦爸爸">
+    <div class="duoxuan">
+        <ul>
+            <li style="color: #fa7d3c; font-size: 13px; display:block;">查看完整热搜榜»</li>
+            <li><span id="first">1</span>总怀疑自己得病怎么办 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-fei"></i></li>
+            <li><span id="second">2</span>新型肺炎潜伏期最长24天</li>
+            <li><span class="teshu">3</span>非湖北返程是否需要隔离14天</li>
+            <li><span class="teshu">4</span>杨紫工作室声明&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-xin"></i></li>
+            <li><span class="teshu">5</span>谭松韵：我要去接大人回家了&nbsp;&nbsp;<i class="iconfont icon-re"></i></li>
+            <li><span class="teshu">6</span>武汉最牛小区其实已有确诊病例</li>
+            <li><span class="teshu">7</span>9月北京新发病例活动场所</li>
+            <li><span class="teshu">8</span>LG出售中国总部大楼  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="iconfont icon-xin"></i></li>
+            <li><span class="teshu">9</span>13家快递企业恢复正常运营</li>
+            <li><span class="teshu">10</span>外省支援湖北对口支援表</li>
+        </ul>
+    </div>
+    <button type="button">
+        <i class="iconfont icon-xiazai5">
+        </i> 
+    </button>   
+ 
+    </div>
+    <div class="daohang">
+     <ul>
+        <li>
+            <a href="https://weibo.com/">
+        <i class="iconfont icon-shouye"></i>
+        <em>首页</em> 
+            </a>
+    </li>
+        <li>
+            <a href="https://weibo.com/tv">
+                <i class="iconfont icon-shipin"></i>
+                <em>视频</em>
+             </a>
+        </li>
+        <li>
+            <a href="https://weibo.com/">
+                <i class="iconfont icon-faxian"></i>
+                <em>发现</em>
+             </a>
+        </li>
+        <li>
+            <a href="http://game.weibo.com/?topnav=1&mod=logo&wvr=6">
+                <i class="iconfont icon-youxi-"></i>
+            <em>游戏</em> 
+        </a>
+       </li>
+     </ul>
+    </div>
+    <div class="denglu">
+        <ul>
+            <li><a href="//weibo.com/signup/signup.php"">
+             <em>注册&nbsp;&nbsp;&nbsp;&nbsp;</em>
+                </a></li>
+            <li>|&nbsp;&nbsp;&nbsp;&nbsp;</li>
+            <li><a href="https://weibo.com/#_loginLayer_1581314240137">
+                  <em>登录</em>     
+            </a>
+            </li>
+        </ul>
+    </div>
+   </header>
+   <article class="article">
+    <!-- 几个文章 -->
+   <aside class="left">
+       <!-- 侧栏 -->
+      <ul>
+        <li><a href="https://www.weibo.com/" class="seleted">热门</li></a>
+        <li><a href="https://www.weibo.com/?category=1760">头条</li></a>
+        <li><a href="https://weibo.com/tv">视频</li></a>
+        <li><a href="https://weibo.com/?category=99991">榜单</li></a>
+        <li><a href="https://weibo.com/?category=10011">搞笑</li></a>
+        <li><a href="https://weibo.com/?category=7">社会</li></a>
+        <li><a href="https://weibo.com/?category=12">时尚</li></a>
+        <li><a href="https://weibo.com/?category=10018">电影</li></a>
+        <li><a href="https://weibo.com/?category=10007">美女</li></a>
+        <li><a href="https://weibo.com/?category=3">体育</li></a>
+        <li><a href="https://weibo.com/?category=10005">动漫</li></a>
+      </ul>
+   </aside>
+   <article>
+       <div class="main">
+       <div class="bikai">
+           <!-- 不会滑动 -->
+           <img usemap="#zhuixin" src="./img/lunbotu.png" class="tupian" >
+           <ul>
+               <li class="tupian1"></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+               <li></li>
+           </ul>
+           <map name="zhuixin">
+            <area shape="reat" coords="0,0,540,300" onfocus="this.blur();"href="https://s.weibo.com/weibo/%E5%AE%85%E5%AE%B6%E8%BF%BD%E5%89%A7%E6%8C%87%E5%8D%97?topnav=1&wvr=6&topsug=1" target="_blank">
+            <area shape="reat" coords="543,0,660,150" onfocus="this.blur();" href="https://s.weibo.com/weibo?q=%23%E4%B8%8A%E7%BD%91%E8%AF%BE%E6%97%B6%E7%9A%84%E5%B0%B4%E5%B0%AC%E7%9E%AC%E9%97%B4%23&from=default" target="_blank">
+            <area shape="reat" coords="543,150,660,300" onfocus="this.blur();" href="http://ent.zdface.com/mxkb/2020-02-11/866232_2.shtml" target="_blank">
+        </map>
+           <div class="wenzi">
+    <a href="https://s.weibo.com/weibo/%E5%AE%85%E5%AE%B6%E8%BF%BD%E5%89%A7%E6%8C%87%E5%8D%97?topnav=1&wvr=6&topsug=1" target="_blank">
+            <div class="fwenzi">
+        <h2 class="firstwenzi">#这个耳环好看#</h2>
+        <h3 class="firstwenzih">
+            2.4万讨论
+            2亿阅读
+        </h3>
+       </div>
+    </a>
+       <a href="https://s.weibo.com/weibo?q=%23%E4%B8%8A%E7%BD%91%E8%AF%BE%E6%97%B6%E7%9A%84%E5%B0%B4%E5%B0%AC%E7%9E%AC%E9%97%B4%23&from=default" target="_blank">
+        <div style="position: relative;left: 4px;">
+     
+        <h2 class="secondwenzi"> <pre>#山药成为rapper star吗
+          瞬间#
+        </pre></h2>
+        </a>
+        </div>
+        <a href="http://ent.zdface.com/mxkb/2020-02-11/866232_2.shtml" target="_blank">
+           <h2 class="thirdwenzi">
+               <pre>#622号患者档案     
+# </pre>  </a>
+</div>
+           
+        </div>
+        <div class="tixin">
+            <!-- 新消息 -->
+            你有未读内容，点击查看
+            <span>x</span>
+        </div>
+    <div>
+<!-- 这个盒子里有10个小盒子包括最中间的内容 -->
+      <div class="neirong clearfix" >
+          <div class="shipin">
+          <img src="https://wx2.sinaimg.cn/orj480/a7af5631ly1gbsu85qjv9j20o00djwik.jpg" alt="">
+          <i class="iconfont icon-bofang"></i></div>
+          <a href="https://weibo.com/3619169387/ItLa0FuWi?type=comment">
+          <div class="neirong1">
+            
+            来看看<span>#大型网课翻车现场#</span>老师：叫一下妈妈！孩子：啥？老师：我是说你把妈妈叫过来
+            （孩子内心：<span>#上个网课咋还有这么无理的要求#)
+            </span>
+            <span><i class="iconfont icon-shipin"></i>八组兔区娱乐圈的微博视频</span>
+          </div></a>
+          <div class="zan clearfix">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>42921</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>37466</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <imgspan>54637</imgspan>
+          </div>
+          <div class="mingzi" >
+              <img src="./img/2.jpg" alt="" style="width: 20px;height: 20px;border-radius: 50%;position: relative;
+              left: 8px;">
+              <span style="bottom: 2px;left: 13px;position: relative;">松鼠视频  
+                2月11日 21:24 </span> 
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <img src="https://wx2.sinaimg.cn/thumb180/68687195ly1gbsyw7w6lmj20u01sx0wj.jpg" alt="" style="width: 158px;height: 158px;margin-bottom: 12px">
+        <div class="neirong1" style="margin-left: 172px;">
+            这位美丽的小姐姐，虽然看不到你的脸，但我知道你们都是最美的。等疫情过去我请你们看相声，想听啥演啥！
+            <div class="mingzi" >
+                <img src="./img/yue.png" alt="" style="width: 20px;height: 20px;position: absolute;bottom: 28px;
+                left: 171px;border-radius: 50%;">
+           <span>岳云鹏  今天 01:19</span> 
+        </div>
+        <div class="zan" style="bottom: 26px;margin-right: -16px;letter-spacing: -1px;width: 205px;">
+            <i class="iconfont icon-fenxiang"></i>
+            <span>435564</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-pinglun"></i>
+            <span>345366</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-zan2"></i>
+            <span>56476</span>
+        
+        </div> ​​​​
+        </div>
+        
+      </div>
+      <div class="neirong clearfix">
+          <img src="./img/1.jpg"  >
+        <div class="neirong1" style="padding-left: 340px;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error saepe, earum cupiditate tempora a quidem atque eos mampedit dolore dolorum labore ullam, rem debitis perspiciatis cum. Fugit sint aspernatur pariatur blanditiis eius repellendus harum qui possimus exercitationem. Quia, adipisci suscipit.
+</div>
+        <div class="zan">
+            <i class="iconfont icon-fenxiang"></i>
+            <span>65464</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-pinglun"></i>
+            <span>56475</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-zan2"></i>
+            <span>36565</span>
+        </div>
+      </div>
+      <div class="neirong clearfix">
+          <img src="./img/aee4a479ly1gee7vt4g14j20v01jc1j7.jpg" alt="" style="width: 200px;height: 221px;">
+        
+            <div class="neirong1" style="padding-left: 212px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbspBilly郎朗，LEVEL UP厂牌歌手，风格多样，主做Trap。擅长嗓音变化，用不同Flow驾驭各种伴奏。
+                2010年开始接触hiphop
+
+                2014年开始创作
+                
+                代表作：《622号患者档案》、《Yeah Yeah》、《Mercy》、《阿萨姆》、《LIL PUNK lil pump diss》等
+                
+                2017年8月为爱奇艺尖叫之夜作词
+                
+                2017年10月参加比赛“中国说唱”
+                
+                2017年11月与“芭莎男士”合作录制配乐歌曲《芭莎巅峰礼台》
+                
+                2017年11月录制多个广告歌曲
+             </div>
+        <div class="zan" style="margin-right: -48px;">
+            <i class="iconfont icon-fenxiang" ></i>
+            <span>3543536</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-pinglun"></i>
+            <span>543536</span>
+            <span class="fenge">|</span>
+            <i class="iconfont icon-zan2"></i>
+            <span>43535</span>
+        </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem maxime quo voluptatum unde cumque suscipit, totam omnis doloribus perspiciatis labore nobis magnam velit architecto quos animi molestiae magni vitae officia eius eos. Minus tempore aut, nisi quos ex blanditiis distinctio tenetur natus saepe suscipit iusto! Beatae quae ratione aperiam at labore minus neque ea ullam, voluptatum numquam assumenda, nulla, deserunt tempora voluptatibus sunt. Minus eligendi hic quas, nemo, ipsa odit quidem soluta, facere corrupti inventore eius culpa? Eum architecto expedita, minus ex tempore, nulla accusantium dolorem facilis itaque corrupti sapiente? Atque explicabo nam pariatur, eum voluptatibus facilis vitae ad praesentium!
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>43565</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>36563</span>
+              <span class="fenge">|</span>
+              <span class="yidong" style="width: 23px;
+            height: 32px;
+            background-image: url('img/zan_副本.jpg');
+            background-size: cover;
+            display: inline-block;
+            background-color: white;"></span>
+              <span>17384</span>
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi voluptate libero ipsam labore! Nesciunt nihil sunt error quidem totam accusantium voluptate magnam quas libero commodi ad possimus odio eum facere, optio exercitationem, sint adipisci hic aliquid deserunt fuga voluptatem velit. Aspernatur atque ipsa, maiores veritatis asperiores modi nam voluptas iure in quod dolor sunt vitae ad porro aut voluptatem quas repudiandae error enim harum molestiae nulla, illo tenetur! Maxime libero incidunt odit at ad dolorem saepe labore exercitationem deserunt et autem, voluptatum necessitatibus ut hic accusantium? Accusamus, provident earum. Placeat sit numquam quos voluptates quibusdam nihil rem ratione ipsam? Doloremque.
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>24343</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>34322</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <span>24324</span>
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt officia quisquam illo et quam minus libero delectus esse voluptate commodi voluptatem modi, in facilis dolor animi dicta consectetur. Consequuntur accusantium quia pariatur nam! Dolor magni labore voluptas voluptates sint deleniti aliquid suscipit quis nam quod modi dolorum cumque excepturi velit reiciendis totam dolorem, soluta laboriosam amet incidunt unde voluptatum architecto sit? Quis nobis cum eligendi saepe quod cumque praesentium impedit dolorum, doloremque accusantium ea optio a omnis, tenetur recusandae natus quia molestias alias illo dolores! Ab perspiciatis illo delectus, cumque eius alias officiis quisquam dolore a quidem consectetur doloremque culpa?
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>35434</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>43222</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <span>23434</span>
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum saepe dolorem quia soluta enim error? Corrupti sequi non unde alias voluptatum ratione nulla eveniet quae sapiente modi. Cumque mollitia minus dolorum totam odit deleniti sapiente assumenda voluptates! Expedita distinctio, eveniet accusantium eius exercitationem nostrum, nulla fugiat adipisci recusandae est laudantium ullam error veritatis nobis aliquam amet maxime? Ex mollitia harum cupiditate libero quibusdam eaque dolorum consequatur, possimus facilis temporibus error assumenda nemo at ratione ipsa, explicabo, fugit necessitatibus expedita optio blanditiis atque beatae tenetur. Molestias sunt laborum id aut, assumenda, delectus vel cumque, porro optio quo sapiente? Aspernatur, iure fuga?
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>32432</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>32432</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <span>12113</span>
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam deserunt est aliquid totam excepturi sint facilis ipsa. Inventore nisi, amet dignissimos officia rerum, dolor, non adipisci cumque sint eveniet esse molestias. Earum ratione rerum consequatur ut architecto repellendus, debitis laboriosam necessitatibus illo assumenda vitae nostrum, alias officiis voluptas libero omnis corporis obcaecati at mollitia nam unde labore. Praesentium sint fuga ipsam dolores quasi, quis quaerat dolore, esse odit quibusdam modi provident placeat labore voluptate accusantium obcaecati corrupti assumenda officiis cum maiores voluptas tempore nesciunt nostrum? Impedit mollitia aspernatur earum, ut praesentium voluptatibus nam ex a debitis illo quidem explicabo omnis.
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>12321</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>34243</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <span>12213</span>
+          </div>
+      </div>
+      <div class="neirong clearfix">
+        <a href="">
+            <div class="neirong1">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque nostrum animi officia laudantium aspernatur, fugiat consequatur amet temporibus sed adipisci accusamus, placeat modi omnis alias earum laboriosam delectus explicabo unde dolor quaerat quos possimus? Dolores iure illo harum, odit totam officia recusandae culpa libero repudiandae, aut in assumenda earum maiores. Ut, impedit ipsam! Possimus, veniam. Reprehenderit, cum dolorem deserunt culpa at facilis maiores perferendis eum illum, incidunt blanditiis aperiam consequuntur molestias placeat eligendi suscipit odio corporis! Sed odio esse voluptates nesciunt nostrum quasi incidunt at facere dicta molestiae rerum qui quod autem distinctio eligendi ratione modi, vero eius quia nemo.
+             </div></a>
+          <div class="zan">
+              <i class="iconfont icon-fenxiang"></i>
+              <span>23224</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-pinglun"></i>
+              <span>43324</span>
+              <span class="fenge">|</span>
+              <i class="iconfont icon-zan2"></i>
+              <span>21344</span>
+          </div>
+        </div>
+        <div class="tixin" style="padding-top:2px">
+            <!-- 页面正在加载 哦哦哦终于要完了！-->
+            <i class="iconfont icon-jiazai" style="font-size: 19px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正在加载中，请稍后...
+      </div>  
+
+    
+    
+    </div>
+    <!-- 中间-->
+    <footer>
+        <!-- footer -->
+        <div class="top clearfix">
+            <!-- footer上半部分 -->
+            <div class="yi1">
+              <h2 class="clearfix">微博精彩</h2>
+              <ul class="gray">
+                    <li style=" float: left;margin-right: 20px;">热门微博</li>
+                    <li>热门话题</li>
+                    <li>名人堂</li>
+                    <li>微博会员</li>
+                    <li>微相册</li>
+                    <li>微游戏</li>
+                    <li>微指数</li>
+              </ul>     
+            </div>
+            <div class="yi2">
+              <h2>手机玩微博</h2>   
+               <figure>
+                    <img src="https://img.t.sinajs.cn/t6/style/images/common/footer_code_v2.png" alt="二维码：扫码下载，更多版本戳这里">
+                    <p class="gray">
+                        扫码下载，更多版本戳这里
+                    </p>
+                </figure>
+            </div>
+            <div class="yi3">
+                <h2>认证&合作</h2>
+                <ul class="gray">
+                    <li>申请认证</li>
+                    <li>链接网站</li>
+                    <li>企业微博</li>
+                    <li>广告服务</li>
+                    <li>微博标识</li>
+                    <li>广告代理商</li>
+                    <li>开放平台</li>
+                </ul>
+            </div>
+            <div class="yi4">
+             <h2>微博服务</h2>
+             <ul class="gray">
+                 <li>常见问题</li>
+                 <li> 自助服务</li>
+                 <li>企业&商业热线</li>
+                 <li>4000-980-980</li>
+             </ul>
+            </div>        
+        </div>
+        <div class="gray bottom">
+            <!-- 页脚下半部分 -->
+             <p><img src="./img/dibu1 (1).png">
+                 微博客服&nbsp;&nbsp;&nbsp;&nbsp;客服热线4000-960-960&nbsp;&nbsp;&nbsp;&nbsp; 意见反馈&nbsp;&nbsp;&nbsp;&nbsp; 舞弊举报 &nbsp;&nbsp;&nbsp;&nbsp;开放平台 &nbsp;&nbsp;&nbsp;&nbsp;微博招聘&nbsp;&nbsp;&nbsp;&nbsp; 新浪网&nbsp;&nbsp;&nbsp;&nbsp; 导航投诉处理大厅&nbsp;&nbsp;&nbsp;&nbsp; DMCA投诉/Report
+                <select style="margin-left: 20px;">
+                    <option selected>中文(简体)</option>
+                    <option>中文(臺灣)</option>
+                    <option>中文(香港)</option>
+                    <option>English</option>
+                </select>
+                </p>
+             <p>京ICP证100780号&nbsp;&nbsp;&nbsp;&nbsp; 互联网药品服务许可证 &nbsp;&nbsp;&nbsp;&nbsp;
+                 互联网医疗保健许可证&nbsp;&nbsp;&nbsp;&nbsp; 京网文[2017]10291-1172号&nbsp;&nbsp;&nbsp;&nbsp; 京ICP备12002058号 &nbsp;&nbsp;&nbsp;&nbsp;增值电信业务经营许可证B2-20140447 </p>
+    
+             <p>互联网新闻信息服务许可编号:11220190001 
+                &nbsp;&nbsp;&nbsp;&nbsp; Copyright &copy; 2009-2020 WEIBO 
+                 <a href="https://weibo.com/aj/static/business_license.html?_wv=6" target="_blank">
+                 北京微梦创科网络技术有限公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </a>
+                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000019" target="_blank">
+                <img src="./picture/dubu2.png">
+                    京公网安备11000002000019号
+                </a> 
+            </p>      
+        </div>
+    </footer>
+   </article>
+   <div class="right">
+    <div class="denglu">
+        <!-- 登录 -->
+        <div class="bai">
+          <div class="qianrutupian">
+            <img src="./img/shouji.png" alt="">
+          </div>
+           <div class="loginin">
+       <div  class="switch-menu">  
+              <!-- 切换菜单 -->
+              <span class="xuanzhong">
+                  账号登录
+              </span>
+              <span>
+                  安全登录
+              </span>
+          </div>
+          <div class="form"> 
+            <!-- 登录/注册 -->
+             <div class="denglu">
+              <input type="text"  class="iconfont" placeholder="邮箱/会员账号/手机号">
+              <i class="iconfont icon-yonghu"></i>
+              <input type="password"  class="iconfont" placeholder="请输入密码">
+              <i class="iconfont icon-mima"></i>
+              <input type="checkbox" class="xuanze" id="remember">
+              <label for="remember"> 
+                  <span style="position: relative;top: -3px;">记住我</span>
+              </label>
+              <span style="position: relative;top: -3px;left: 197px;left: 165px;" class="dianji">忘记密码</span>
+              <div class="dengluanniu">
+                <span>登录</span>
+              </div>
+            </div>
+            <div class="xiaozi xiaozi1">
+              还没有微博？<span>立即注册!</span> 
+            </div>
+          </div>
+          <div class="dibu">
+             <div class="xiaozi2">
+              其它登录：<i class="iconfont icon-taobao"></i>
+              <i class="iconfont icon-QQ"></i>
+              <i class="iconfont icon-yidong"></i>
+              <i class="iconfont icon-zhuangtianyi"></i>
+              <i class="iconfont icon-360"></i>
+             </div>
+          </div> 
+        </div> 
+    </div>
+    </div>  
+  <div class="bian">
+      <div class="main">
+          <h2>微博热门话题</h2>
+          <div class="neirong">
+              <img src="https://wx2.sinaimg.cn/large/006r3BkQly1gk2uswx7q6j30dw0dwwex.jpg" >
+              <h3 class="dianji">
+              #人类为什么需要亲密关系#
+              </h3>
+              <span class="xiaozi" style="margin-left:12px;position: static;">
+                  2.9亿阅读 16.2万讨论
+              </span>
+          </div>
+          <div class="neirong"><img src="https://wx1.sinaimg.cn/large/006607Oxly1gk3zox70rlj30dw0dwabh.jpg" alt="">
+          <h3 class="dianji">
+              #地铁车厢应该静音吗#
+              <h3>
+              <span class="xiaozi">
+                  1602.4亿阅读 6759万讨论
+              </span>
+          </div>
+          <div class="neirong"><img src="https://wx4.sinaimg.cn/large/001N9Ovwly1gk3sbt7mhkj606p06paa702.jpg" alt="">
+              <h3 class="dianji">
+                  #公交车上拍写真有错吗#
+                  <h3>
+                  <span class="xiaozi">
+                      1.8亿阅读 3647万讨论
+                  </span>
+          </div>
+          <div class="neirong"><img src="https://wx3.sinaimg.cn/large/001Na93Ily1gk33dg7b8oj60dw0dwjsz02.jpg" alt="">
+              <h3 class="dianji">
+                  #周震南发声#
+                  <h3>
+                  <span class="xiaozi">
+                      7亿阅读 11.1万讨论
+                  </span>
+          </div>
+          <div class="neirong"><img src="https://wx4.sinaimg.cn/large/001Nakaoly1gk40xq3d2gj60a60a674q02.jpg" alt="">
+              <h3 class="dianji">
+                  #花呗利率制定需符合监管有关规定#
+                  <h3>
+                  <span class="xiaozi">
+                      6506.8万阅读 1776讨论
+                  </span>
+          </div>
+      </div>
+      <div class="dibu">
+      <span class="xiaozi dianji">查看更多 <span>></span></span>
+      </div>
+  </div>
+  <div class="bian">
+      <div class="main">
+          <h2>微博实时热点</h2>
+          <div class="neirong">
+              <img src="https://wx2.sinaimg.cn/large/a716fd45ly1gbulwjl1pjj20c80c8q3l.jpg" alt="">
+              <h3 class="dianji">
+              #湖北省委主要负责同志职务调整#
+              </h3>
+              <span class="xiaozi" style="margin-left:12px;position: static;">
+                  6亿阅读 9.1万讨论
+              </span>
+          </div>
+          <div class="neirong"><img src="https://wx3.sinaimg.cn/large/9e5389bbly1gbufvi0wygj20dw0dw74w.jpg" alt="">
+          <h3 class="dianji">
+              #湖北新增14840例新冠肺炎#
+              <h3>
+              <span class="xiaozi">
+                  5.4亿阅读 10.2万讨论
+              </span>
+          </div>
+          <div class="neirong"><img src="https://wx1.sinaimg.cn/large/7c89135fly1gbq4lyqz70j20a00a03yq.jpg" alt="">
+              <h3 class="dianji">
+                  #战疫打卡行动#
+                  <h3>
+                  <span class="xiaozi">
+                      12.9亿阅读 291.8万讨论
+                  </span>
+          </div>
+          <div class="neirong"><img src="https://wx2.sinaimg.cn/large/9e5389bbly1gbuphe1eehj20ai0ait9b.jpg" alt="">
+              <h3 class="dianji">
+                  #疫情期间更不要抽烟#
+                  <h3>
+                  <span class="xiaozi">
+                      5987.5万阅读 1.1万讨论
+                  </span>
+          </div>
+          <div class="neirong"><img src="https://wx3.sinaimg.cn/large/6a127876ly1gbung1ofgfj208c08c0sx.jpg" alt="">
+              <h3 class="dianji">
+                  #其实在家我能待到明年春节#
+                  <h3>
+                  <span class="xiaozi">
+                      3576.7万阅读 1.9万讨论
+                  </span>
+          </div>
+      </div>
+      <div class="dibu">
+      <span class="xiaozi dianji">查看更多 <span>></span></span>
+      </div>
+  </div>
+  <div class="bian zhaoren">
+      <h2>微博找人</h2>
+      <div class="main">
+          <div class="zhaoren1 clearfix">
+               <h3>
+                   名人
+               </h3>
+               <div class="hezi">
+                   <i class="iconfont icon-mingxing"></i>
+                    <span class="xiaozi dianji">明星</span>
+              </div>
+               <div class="hezi">
+                   <i class="iconfont icon-shangjie yidong"></i>
+                   <span class="xiaozi dianji">商界</span>
+                  </div>
+               <div class="hezi">
+                   <i class="iconfont icon-meitijingying"></i>
+                   <span class="xiaozi dianji">媒体精英</span>
+                  </div>
+               <div class="hezi">
+                   <i class="iconfont icon-shuxuexi-"></i>
+                   <span class="xiaozi dianji">作家</span>
+                  </div>
+               <div class="hezi">
+                   <i class="iconfont icon-zhengfuguanyuan"></i>
+                   <span class="xiaozi dianji">政府官员</span>
+                  </div>
+          </div>
+          <div class="zhaoren1 clearfix">
+              <h3>
+                  专家
+              </h3>
+              <div class="hezi">
+                  <i class="iconfont icon-yiliao"></i>
+                  <span class="xiaozi dianji">医疗</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-yuerqinzi"></i>
+                  <span class="xiaozi dianji">育儿</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-IThulianwang"></i>
+                  <span class="xiaozi dianji">IT互联网</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-erji"></i>
+                  <span class="xiaozi dianji">电台</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-caijing"></i>
+                  <span class="xiaozi dianji">财经</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-bi"></i>
+                  <span class="xiaozi dianji">教育</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-falv"></i>
+                  <span class="xiaozi dianji">法律</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-meizhuang"></i>
+                  <span class="xiaozi dianji">美妆</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-huabi"></i>
+                  <span class="xiaozi dianji">艺术</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-sheji"></i>
+                  <span class="xiaozi dianji">设计</span></div>
+              <div class="hezi">
+                  <i class="iconfont icon-fangchan"></i>
+                  <span class="xiaozi dianji">房产家装</span></div>
+              <div class="hezi yidong1">
+                  <i class="iconfont icon-cheqiche"></i>
+                  <span class="xiaozi dianji">汽车</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-jiaotong"></i>
+                  <span class="xiaozi dianji">交通</span></div>
+              <div class="hezi">
+                  <i class="iconfont icon-zhiye"></i>
+                  <span class="xiaozi dianji">职业招聘</span>
+              </div>
+              <div class="hezi yidong1">
+                  <i class="iconfont icon-hunqingyonghua--copy"></i>
+                  <span class="xiaozi dianji">婚庆</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-shenxueshenxueyuzongjiaoyanjiu"></i>
+                  <span class="xiaozi dianji">宗教</span>
+              </div>
+          </div>
+          <div class="zhaoren1 clearfix">
+              <h3>
+                  兴趣
+              </h3>
+              <div class="hezi"><i class="iconfont icon-meitijingying"></i>
+                  <span class="xiaozi dianji">时尚</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-meinv"></i>
+                  <span class="xiaozi dianji">美女</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-dianying"></i>
+                  <span class="xiaozi dianji">电影</span></div>
+              <div class="hezi"><i class="iconfont icon-dianshiju"></i>
+                  <span class="xiaozi dianji">电视剧</span>
+              </div>
+              <div class="hezi yidong2">
+                  <i class="iconfont icon-yinle"></i>
+                  <span class="xiaozi dianji">音乐</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-dongman"></i>
+                  <span class="xiaozi dianji">动漫</span>
+              </div>
+              <div class="hezi"><i class="iconfont icon-youxi"></i>
+                  <span class="xiaozi dianji">游戏</span>
+              </div>
+              <div class="hezi"><i class="iconfont icon-xingzuo"></i>
+                  <span class="xiaozi dianji">星座</span>
+              </div>
+              <div class="hezi"><i class="iconfont icon-gaoxiao"></i>
+                  <span class="xiaozi dianji">搞笑</span>
+              </div>
+              <div class="hezi"><i class="iconfont icon-qinggan"></i>
+                  <span class="xiaozi dianji">情感两性</span>
+              </div>
+              <div class="hezi yidong3"><i class="iconfont icon-yumaoqiu"></i>
+                  <span class="xiaozi dianji">运动健身</span>
+              </div>
+              <div class="hezi yidong1">
+                  <i class="iconfont icon-qiu"></i>
+                  <span class="xiaozi dianji">体育</span></div>
+              <div class="hezi">
+                  <i class="iconfont icon-web-icon_kexiedaichongwu"></i>
+                  <span class="xiaozi dianji">萌宠</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-meishi"></i>
+                  <span class="xiaozi dianji">美食</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-feiji"></i>
+                  <span class="xiaozi dianji">旅游</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-sheying"></i>
+                  <span class="xiaozi dianji">摄影</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-junshi"></i>
+                  <span class="xiaozi dianji">历史</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-bullet"></i>
+                  <span class="xiaozi dianji">军事</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-kexue"></i>
+                  <span class="xiaozi dianji">科学</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-meiti"></i>
+                  <span class="xiaozi dianji">数码</span>
+              </div>
+          </div>
+          <div class="zhaoren1 clearfix">
+              <h3>
+                  机构
+              </h3>
+              <div class="hezi">
+                  <i class="iconfont icon-zhengwu"></i>
+                  <span class="xiaozi dianji">政务</span>
+              </div>
+              <div class="hezi">
+                  <i class="iconfont icon-meiti"></i>
+                  <span class="xiaozi dianji">媒体</span>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="bian haha">
+      <span class="xiaozi dianji">DMCA投诉/Report
+      <span class="teshu dianji">></span>
+      </span>
+  </div>
+  </div>
+   <div class="gengxin">
+    <div class="zhezhao">
+    
+    </div>
+     <i class="iconfont icon-gengxin2 tubiao">
+
+     </i>
+     <a href="#">
+     <i class="iconfont icon-huidingbux tubiao1"></i>
+    </a>
+   
+   </div>
+</article>
+
+</body>
+</html>       
